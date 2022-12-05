@@ -1,24 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 12:35:37 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/12/05 18:37:19 by yoonslee         ###   ########.fr       */
+/*   Created: 2022/12/05 17:48:45 by yoonslee          #+#    #+#             */
+/*   Updated: 2022/12/05 18:36:58 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdlib.h>
+int	ft_printstr(char *str)
+{
+	int	i;
 
-int	ft_printstr(char *str);
-int	ft_printnbr(int n);
-int	ft_printnbr_unsigned(int n);
+	i = 0;
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}
 
-#endif
+int	ft_printnbr(int n)
+{
+	int		i;
+	char	*nbr;
+
+	i = 0;
+	nbr = ft_itoa(n);
+	i = ft_printstr(nbr);
+	free(nbr);
+	nbr = NULL;
+	return (i);
+}
+
+int	ft_printnbr_unsigned(int n)
+{
+	
+}

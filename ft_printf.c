@@ -6,7 +6,7 @@
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:07:28 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/12/05 18:43:51 by yoonslee         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:38:04 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	ft_check(char c, va_list ap)
 		length += ft_printchr(va_arg(ap, int));
 	else if (c == 's')
 		length += ft_printstr(va_arg(ap, char *));
-	else if (c == 'p') //the void *pointer argument is printed in hexadecimal && needs to be unsigned long long
-		length += ft_printptr(va_arg(args, unsigned long long));
-	else if (c == 'd' || c == 'i') // int argument is convereted to signed decimal notation
+	else if (c == 'p')
+		length += ft_printptr(va_arg(ap, unsigned long long));
+	else if (c == 'd' || c == 'i')
 		length += ft_printnbr(va_arg(ap, int));
-	else if (c == 'u')//unsigned int argument is converted to unsigned decimal
+	else if (c == 'u')
 		length += ft_printnbr_unsigned(va_arg(ap, unsigned long));
-	else if (c == 'x')//unsigned int argument is converted to unsigned hexadecimal
-		length += ;
-	else if (c == 'X')//unsigned int argument is converted to unsigned hexadecimal
-		length += ;
+	else if (c == 'x')
+		length += ft_printhex_small(va_arg(ap, unsigned long));
+	else if (c == 'X')
+		length += ft_printhex_big(va_arg(ap, unsigned long));
 	else if (c == '%')
 		length += ft_printchr('%');
 	return (length);

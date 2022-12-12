@@ -1,34 +1,40 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/12/12 13:39:08 by yoonslee          #+#    #+#              #
+#    Updated: 2022/12/12 14:38:15 by yoonslee         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = libftprintf.a
-
+SRCS = ft_printf.c ft_printf_utils.c ft_printf_ptr.c ft_printf_hex.c
+OBJS = $(SRCS:.c = .o)
+HEADER = ft_print.h
 LIBFT_PATH = ./libft
-LIBFT = $(LIBFT_PATH)/libft.a
+LIBFT = ./libft/libft.a
+CFLAGS = -Wall -Wextra -Werror
 
-CFlGAS = -Wall -Wextra -Werror
+all:$(NAME)
 
-SOURCES = ./sources/ft_printf.c \
-			./sources/ft_printf.c \
-			./sources/ft_printf.c \
-
-OBJECTS = $(SOURCES:.c = .o)
-
-all:$(LIBFT) $(NAME)
-
-$(LIBFT):
-		make $(LIBFT_PATH)
-
-$(NAME):$(OBJECTS)
-			cp $(LIBFT) $(NAME)
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(LIBFT_PATH)
-			ar rcs $(NAME) $(OBJECTS)
+$(NAME):$(OBJS)
+		$(make) -C $(LIBFT_PATH) all
+		$(make) -C $(LIBFT_PATH) bonus
+		cp $(LIBFT_PATH)$(LIBFT) .
+		mv libft.a ./$(NAME)
+		cc $(CFLAGS) $(SRCS) -I $(HEADER)
+		ar -rus $(NAME) $(OBJS)
 
 clean:
 		make clean -C $(LIBFT_PATH)
-		rm -f $(OBJECTS)
+		rm -rf $(OBJS)
 
 fclean:	clean
-		make fclean -C $(LIBFT_PATH)
-		rm -f $(NAME)
+		rm -rf $(LIBFT_PATH)$(LIBFT)
+		rm -rf $(NAME)
 
 re:	fclean all
 

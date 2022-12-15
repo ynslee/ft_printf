@@ -6,7 +6,7 @@
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:48:45 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/12/05 18:36:58 by yoonslee         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:54:02 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,19 @@ int	ft_printnbr(int n)
 	return (i);
 }
 
-int	ft_printnbr_unsigned(int n)
+int	ft_printnbr_unsigned(unsigned int n)
 {
-	
+	int	len;
+
+	len = 1;
+	if (n / 10 > 0)
+	{
+		len += ft_printnbr_unsigned(n / 10);
+	}
+	n = n % 10;
+	if (n < 10 && n >= 0)
+	{
+		ft_printchr(n + '0');
+	}
+	return (len);
 }

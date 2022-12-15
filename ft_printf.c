@@ -6,7 +6,7 @@
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 12:07:28 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/12/12 14:38:04 by yoonslee         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:33:59 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	ft_printf(const char *str, ...)
 	if (!str)
 		return (0);
 	length = 0;
-	va_start(ap, str[i]);
+	va_start(ap, str);
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '%' && str[i + 1])
@@ -60,7 +61,7 @@ int	ft_printf(const char *str, ...)
 			length += ft_check(str[i], ap);
 		}
 		else
-			length += ft_printchar(str[i]);
+			length += ft_printchr(str[i]);
 		i++;
 	}
 	va_end(ap);

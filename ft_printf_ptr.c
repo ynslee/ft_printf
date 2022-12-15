@@ -6,45 +6,42 @@
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 14:33:42 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/12/12 14:41:06 by yoonslee         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:45:46 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ptr_len(unsigned long long n)
-{
-	int	len;
-
-	len = 0;
-	while (n != 0)
-	{
-		len++;
-		n = n / 16;
-	}
-	return (len);
-}
-
-void	ptr_hexa(unsigned long long n)
+static int	ptr_hexa(unsigned long long n)
 {
 	int	temp;
+	int	count;
 
-	if (n >= 16)
+	count = 1;
+	temp = 0;
+	if (n / 16 > 0)
 	{
-		ft_printhex_big(n / 16);
-		ft_printhex_bif(n % 16);
+		count += ptr_hexa(n / 16);
 	}
-	if (n >= 10 && n < 16)
-		temp = n - 10 + 'a';
-	if (n < 10)
-		temp = n - 10 + '0';
+	n = n % 16;
+	if (n >= 0 && n <= 15)
+	{
+		if (n > 9 && n <= 15)
+			temp = n - 10 + 'a';
+		else
+			temp = n + '0';
+	}
 	ft_printchr(temp);
+	return (count);
 }
 
 int	ft_printptr(unsigned long long n)
 {
-	ft_putchar_chr('0');
-	ft_putchar_chr('x');
-	ft_hexa_deci_ptr(n);
-	return (ptr_len(n));
+	int	len;
+
+	len = 2;
+	ft_printchr('0');
+	ft_printchr('x');
+	len += ptr_hexa(n);
+	return (len);
 }
